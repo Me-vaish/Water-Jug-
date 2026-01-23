@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Water Jug Problem</title>
+
+<style>
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #eef4ff, #f9fbff);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    background: #ffffff;
+    padding: 36px 56px;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+    text-align: center;
+    width: 760px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;  
+    gap: 140px;
+    margin: 40px 0;
+}
+
+
+.jug {
+    position: relative;
+    width: 120px;
+}
+
+.jug-body {
+    position: relative;
+    width: 100%;
+    border: 4px solid #2b2b2b;
+    border-top: none;              
+    border-radius: 0 0 26px 26px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.jug.big .jug-body {
+    height: 280px;   
+}
+
+.jug.small .jug-body {
+    height: 210px;  
+}
+
+
+.jug-body::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: -4px;
+    width: calc(100% + 8px);
+    height: 10px;
+    background: #2b2b2b;
+    border-radius: 0 0 20px 20px;
+}
+
+
+.water {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(#5bb2ff, #2f8cff);
+}
+
+
+.label {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.buttons {
+    margin-top: 12px;
+}
+
+button {
+    margin: 6px;
+    padding: 9px 18px;
+    font-size: 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fill {
+    background: #e3f0ff;
+}
+.fill:hover {
+    background: #cfe4ff;
+}
+
+.empty {
+    background: #ffe6e6;
+}
+.empty:hover {
+    background: #ffd1d1;
+}
+
+.action {
+    background: #f1f1f1;
+}
+.action:hover {
+    background: #e0e0e0;
+}
+
+.special {
+    background: #e8f7ff;
+}
+.special:hover {
+    background: #d6f0ff;
+}
+
+.actions {
+    margin-top: 22px;
+}
+
+
+.solution-box {
+    margin-top: 22px;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f3f8ff;
+    display: none;
+    font-size: 14px;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    padding: 28px 36px;
+    border-radius: 14px;
+    text-align: center;
+    width: 320px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    animation: pop 0.3s ease-out;
+}
+
+@keyframes pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal h3 {
+    margin-top: 0;
+    color: #2f8cff;
+}
+
+.modal button {
+    margin-top: 18px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #e3f0ff;
+}
+.modal button:hover {
+    background: #cfe4ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+<h2> Water Jug Problem</h2>
+<p>Goal: Get <b>2 liters</b> in Jug A</p>
+
+<div class="container">
+
+
+<div class="jug big">
+    <div class="jug-body">
+        <div class="water" style="height: {{ (A/capA)*100 }}%;"></div>
+    </div>
+    <div class="label">Jug A ({{ A }}/{{ capA }} L)</div>
+    <div class="buttons">
+        <button class="fill" onclick="go('fillA')">Fill A</button>
+        <button class="empty" onclick="go('emptyA')">Empty A</button>
+    </div>
+</div>
+
+
+<div class="jug small">
+    <div class="jug-body">
+        <div class="water" style="height: {{ (B/capB)*100 }}%;"></div>
+    </div>
+    <div class="label">Jug B ({{ B }}/{{ capB }} L)</div>
+    <div class="buttons">
+        <button class="fill" onclick="go('fillB')">Fill B</button>
+        <button class="empty" onclick="go('emptyB')">Empty B</button>
+    </div>
+</div>
+
+</div>
+
+<div class="actions">
+    <button class="action" onclick="go('pourAtoB')">Pour A → B</button>
+    <button class="action" onclick="go('pourBtoA')">Pour B → A</button>
+</div>
+
+<div class="actions">
+    <button class="special" onclick="go('reset')">Reset</button>
+    <button class="special" onclick="showSolution()">Show Solution</button>
+</div>
+
+<div id="solution" class="solution-box"></div>
+
+</div>
+
+
+<div id="overlay" class="overlay">
+    <div class="modal">
+        <h3> Goal Achieved!</h3>
+        <p>You successfully measured <b>2 liters</b> in Jug A.</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<script>
+function go(action) {
+    location.href = "/action/" + action;
+}
+
+function showSolution() {
+    fetch("/solution")
+        .then(res => res.json())
+        .then(data => {
+            let box = document.getElementById("solution");
+            box.style.display = "block";
+            box.innerHTML =
+                "<b>BFS Solution Steps:</b><br>" +
+                data.map((s,i)=>`Step ${i}: A=${s[0]}, B=${s[1]}`).join("<br>");
+        });
+}
+
+function closeModal() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+window.onload = function () {
+    {% if A == goal %}
+    document.getElementById("overlay").style.display = "flex";
+    {% endif %}
+};
+</script>
+
+</body>
+</html>
