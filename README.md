@@ -51,9 +51,9 @@ Any state where either jug contains the target amount of water.
 
 
 ## Applications
-Artificial Intelligence and problem-solving demonstrations
-Understanding state space search
-Academic assignments and lab experiments
+- Artificial Intelligence and problem-solving demonstrations
+- Understanding state space search
+- Academic assignments and lab experiments
 
 ---
 
