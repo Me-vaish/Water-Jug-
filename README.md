@@ -4,8 +4,10 @@
 http://water-jug-production.up.railway.app/
 
 ---
-Overview
+
+## Overview
 This project implements the classic Water Jug Problem, a well-known Artificial Intelligence problem that demonstrates state space search and logical reasoning. The objective is to measure a specific target amount of water using two jugs of fixed capacities and a limited set of operations.
+
 ---
 
 ## Technologies Used
@@ -13,10 +15,12 @@ This project implements the classic Water Jug Problem, a well-known Artificial I
 - HTML
 - CSS
 - JavaScript
+
   ---
   
 ## Algorithmic Logic
 State Space Search (BFS / DFS)
+
 ---
 ## Problem Description
 Two jugs with fixed capacities are given.
@@ -42,6 +46,7 @@ Initial State
 
 Target State
 Any state where either jug contains the target amount of water.
+
 ---
 
 
@@ -49,6 +54,7 @@ Any state where either jug contains the target amount of water.
 Artificial Intelligence and problem-solving demonstrations
 Understanding state space search
 Academic assignments and lab experiments
+
 ---
 
 ## How to Run
