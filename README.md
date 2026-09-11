@@ -1,7 +1,5 @@
 # Water Jug Problem – State Space Search
 
-## Live Demo (MVP)
-http://water-jug-production.up.railway.app/
 
 ---
 
